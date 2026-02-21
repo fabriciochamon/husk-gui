@@ -97,7 +97,11 @@ def render():
 			mplay = f'--mplay-monitor \"{dpg.get_value("mplay_aovs")}\"' if dpg.get_value('mplay_monitor') else ''
 			gpu_flag = ''#get_gpu_flag()
 
-			cmd = f'"{husk}" -R {delegate} -f {fstart} -n {nframes} -r {render_res} {mplay} {gpu_flag} -Va1 --prerender-script pre_render.py --postrender-script post_render.py --stdout "{config.logfile}" {usd}'
+			# pre/post render scripts paths
+			pre_render_script = utils.get_path('pre_render.py')
+			post_render_script = utils.get_path('post_render.py')
+
+			cmd = f'"{husk}" -R {delegate} -f {fstart} -n {nframes} -r {render_res} {mplay} {gpu_flag} -Va1 --prerender-script "{pre_render_script}" --postrender-script "{post_render_script}" --stdout "{config.logfile}" {usd}'
 			utils.flash_message(f'RENDERING {os.path.basename(usd)}', color=(111, 235, 2))
 
 			print(f'Render commmand received:\n\n{cmd}')
@@ -119,7 +123,8 @@ def inspect_usd(usd):
 	husk = houdini_paths.get_bin('husk')
 	env = os.environ.copy()
 	env['HUSKGUI_TMP'] = str(config.tmpdir)
-	cmd = f'"{husk}" --prerender-script usd_inspection.py {usd}'
+	usd_inspection_script = utils.get_path('usd_inspection.py')
+	cmd = f'"{husk}" --prerender-script "{usd_inspection_script}" {usd}'
 	proc = subprocess.run(cmd, env=env)
 	
 	# load temp .json with usd info
