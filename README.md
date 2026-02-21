@@ -24,6 +24,8 @@ Depending on which plugin packages are loaded with your desired Houdini version,
 
 Also, there might be cases where you override the packages dir altogether, for example in the case of using custom launchers (like [Packman](https://github.com/fabriciochamon/Packman)). In this case you might want to use the "Override packages dir" input.
 
+(btw, if Packman is found on your system, it will automaticaly populate the "Override packages dir" field with your repo folder!)
+
 ## Other utilities/tools
 
 Once a render is finished, you can use the icons right after the progress bar at the bottom:
