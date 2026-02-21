@@ -8,10 +8,15 @@ Download binaries [here](https://github.com/fabriciochamon/husk-gui/releases)
 ## Basic usage
 
 1- Load a .usd file by dragging it to the window (or by using the file browser). It will take a few seconds to inspect the file and load render resolution / frame range.
+
 2- Once loaded, select the desired Houdini version to use husk from, in Houdini version combo.
+
 3- Press the yellow "reload" icon, in Render delegate section, it will fetch available renders from your chosen Houdini version, choose one.
+
 4- Optionally override frame range or resolution from file.
+
 5- Press "Render"
+
 
 ## Render delegates
 
@@ -22,6 +27,7 @@ Also, there might be cases where you override the packages dir alotgether, for e
 ## Other utilities/tools
 
 Once a render is finished, you can use the icons right after the progress bar at the bottom:
+
 - folder icon: open render outoput folder
 - film roll icon: open rendered frames in mplay
 - clapperboard icon: create video from render, optionally ctrl+click to open video output folder if you want to copy/paste/send to someone elese. (assumes render output is .exr, ACEScg, and that you have "ffmpeg" installed and available on path)
