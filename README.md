@@ -7,7 +7,7 @@ Download binaries [here](https://github.com/fabriciochamon/husk-gui/releases)
 
 ## Basic usage
 
-1- Load a .usd file by dragging it to the window (or by using the file browser). It will take a few seconds to inspect the file and load render resolution / frame range.
+1- Load a .usd file by dragging it to the window (or by using the file browser). It will take a few seconds to inspect the file and load the render resolution / frame range.
 
 2- Once loaded, select the desired Houdini version to use husk from, in Houdini version combo.
 
