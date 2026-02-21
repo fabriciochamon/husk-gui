@@ -11,7 +11,7 @@ Download binaries [here](https://github.com/fabriciochamon/husk-gui/releases)
 
 2- Once loaded, select the desired Houdini version to use husk from, in Houdini version combo.
 
-3- Press the yellow "reload" icon, in Render delegate section, it will fetch available renders from your chosen Houdini version, choose one.
+3- If no render delegates are shown, press the yellow "reload" icon, it will fetch available renders from your chosen Houdini version, pick one.
 
 4- Optionally override frame range or resolution from file.
 
