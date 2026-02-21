@@ -28,7 +28,7 @@ Also, there might be cases where you override the packages dir altogether, for e
 
 ## Other utilities/tools
 
-Once a render is finished, you can use the icons right after the progress bar at the bottom:
+Once a render is finished, you can use the icons to the right of the progress:
 
 - folder icon: open render outoput folder
 - film roll icon: open rendered frames in mplay
