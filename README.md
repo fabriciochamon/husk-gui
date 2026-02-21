@@ -22,7 +22,7 @@ Download binaries [here](https://github.com/fabriciochamon/husk-gui/releases)
 
 Depending on which plugin packages are loaded with your desired Houdini version, different render delegates might be available, hence the reload icon. 
 
-Also, there might be cases where you override the packages dir alotgether, for example in the case of using custom launchers (like [Packman](https://github.com/fabriciochamon/Packman)). In this case you might want to use the "Override packages dir" input.
+Also, there might be cases where you override the packages dir altogether, for example in the case of using custom launchers (like [Packman](https://github.com/fabriciochamon/Packman)). In this case you might want to use the "Override packages dir" input.
 
 ## Other utilities/tools
 
