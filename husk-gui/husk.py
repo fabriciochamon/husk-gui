@@ -6,9 +6,6 @@ import utils, selectables, log, config
 from fileseq import FileSequence
 import houdini_paths
 
-# GLOBAL VARS
-HOUDINI_DISABLE_OPENFX_DEFAULT_PATH = 1
-
 # starting from Houdini 21.0.170, husk accepts the --gpu flag, to make gpu based render delegates available
 # this function handles where this is usable for the render command based on currently selected houdini version
 def get_gpu_flag():
@@ -25,7 +22,7 @@ def get_available_render_delegates():
 	houdini_version = dpg.get_value('houdini_version')
 	husk = houdini_paths.get_bin('husk')
 	env = os.environ.copy()
-	env['HOUDINI_DISABLE_OPENFX_DEFAULT_PATH'] = str(HOUDINI_DISABLE_OPENFX_DEFAULT_PATH)
+	env['HOUDINI_DISABLE_OPENFX_DEFAULT_PATH'] = str(config.houdini_disable_openfx_default_path)
 	if packages_dir.strip() != '':
 		env['HOUDINI_PACKAGE_DIR'] = packages_dir
 
@@ -82,7 +79,7 @@ def render():
 			# init env
 			env = os.environ.copy()
 			env['HUSKGUI_TMP'] = str(config.tmpdir)
-			env['HOUDINI_DISABLE_OPENFX_DEFAULT_PATH'] = str(HOUDINI_DISABLE_OPENFX_DEFAULT_PATH)
+			env['HOUDINI_DISABLE_OPENFX_DEFAULT_PATH'] = str(config.houdini_disable_openfx_default_path)
 			packages_dir = dpg.get_value('packages_dir')
 			if packages_dir.strip() != '':
 				env['HOUDINI_PACKAGE_DIR'] = packages_dir
@@ -92,7 +89,6 @@ def render():
 			fstart = int(dpg.get_value('framerange_start'))
 			fend = int(dpg.get_value('framerange_end'))
 			nframes = fend-fstart+1
-			framerange = f'-f {fstart} -n {nframes}' if dpg.get_value('override_framerange') else ''
 			render_res = dpg.get_value('res_x') + ' ' + dpg.get_value('res_y')
 			mplay = f'--mplay-monitor \"{dpg.get_value("mplay_aovs")}\"' if dpg.get_value('mplay_monitor') else ''
 			gpu_flag = ''#get_gpu_flag()

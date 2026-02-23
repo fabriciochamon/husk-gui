@@ -9,21 +9,10 @@ import log
 
 FFMPEG_AVAILABLE = False
 
-render_resolutions = {
-	'HD 720': [1280, 720],
-	'HD 1080': [1920, 1080],
-	'HD 2160 (4k)': [3840, 2160],
-	'Square 512px': [512, 512],
-	'Square 1k': [1024, 1024],
-	'Square 2k': [2048, 2048],
-	'Square 4k': [4096, 4096],
-}
-
 # sets render resolution from preset combo item
 def set_render_preset(sender, app_data, user_data):
-	global render_resolutions
-	dpg.set_value('res_x', render_resolutions[app_data][0])
-	dpg.set_value('res_y', render_resolutions[app_data][1])
+	dpg.set_value('res_x', config.preset_render_resolutions[app_data][0])
+	dpg.set_value('res_y', config.preset_render_resolutions[app_data][1])
 
 # sets text input path to item chosen on a dpge file browser instance
 def set_fb_path(sender, files, cancel_pressed, user_data):
@@ -212,7 +201,7 @@ def open_render_in_mplay():
 			
 			# init env
 			env = os.environ.copy()
-			env['HOUDINI_DISABLE_OPENFX_DEFAULT_PATH'] = str(husk.HOUDINI_DISABLE_OPENFX_DEFAULT_PATH)
+			env['HOUDINI_DISABLE_OPENFX_DEFAULT_PATH'] = str(config.houdini_disable_openfx_default_path)
 			packages_dir = dpg.get_value('packages_dir')
 			if packages_dir.strip() != '':
 				env['HOUDINI_PACKAGE_DIR'] = packages_dir
@@ -267,7 +256,7 @@ def create_video_from_render_output():
 				
 				# init env
 				env = os.environ.copy()
-				env['HOUDINI_DISABLE_OPENFX_DEFAULT_PATH'] = str(husk.HOUDINI_DISABLE_OPENFX_DEFAULT_PATH)
+				env['HOUDINI_DISABLE_OPENFX_DEFAULT_PATH'] = str(config.houdini_disable_openfx_default_path)
 				packages_dir = dpg.get_value('packages_dir')
 				if packages_dir.strip() != '':
 					env['HOUDINI_PACKAGE_DIR'] = packages_dir

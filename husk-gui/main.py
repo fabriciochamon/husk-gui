@@ -121,7 +121,7 @@ with dpg.window(tag='main_win') as mainwin:
 					dpg.add_text('px')
 					dpg.add_spacer(width=20)
 					dpg.add_text('load preset:')
-					dpg.add_combo(tag='res_presets', items=list(utils.render_resolutions.keys()), default_value=list(utils.render_resolutions.keys())[1], fit_width=True, callback=utils.set_render_preset)
+					dpg.add_combo(tag='res_presets', items=list(config.preset_render_resolutions.keys()), default_value=list(config.preset_render_resolutions.keys())[1], fit_width=True, callback=utils.set_render_preset)
 				dpg.add_spacer(width=-1)
 
 			# mplay monitor
