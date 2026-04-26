@@ -48,6 +48,8 @@ def get_available_render_delegates():
 				'renderman': 'Renderman',
 				'arnold': 'Arnold',
 				'redshift': 'Redshift',
+				'v-ray': 'V-Ray',
+				'vantage': 'V-Ray',
 			}
 
 			for k,v in brands.items():
