@@ -9,8 +9,10 @@ def get_houdini_installed_versions(fullpaths=False):
 
 	# windows
 	if os.name == 'nt':
-		install_path = 'C:/Program Files/Side Effects Software'
-		programs = os.listdir(install_path)
+		programs = []
+		for drive in sorted(os.listdrives()):
+			install_path = f'{drive.replace("\\", "/")}Program Files/Side Effects Software'
+			programs.extend(os.listdir(install_path))
 		pattern = re.compile(r'Houdini (\d{2})\.(\d)\.(\d{3})')
 	
 	# linux
@@ -24,8 +26,10 @@ def get_houdini_installed_versions(fullpaths=False):
 			if not fullpaths:
 				installs.append(p.replace('hfs', '').replace('Houdini ', ''))
 			else:
-				installs.append(os.path.join(install_path, p))
-
+				program_path = os.path.join(install_path, p)
+				program_path = program_path.replace('\\', '/')
+				installs.append(program_path)
+				
 	return sorted(installs, reverse=True)
 
 # get houdini install path for a specific houdini version

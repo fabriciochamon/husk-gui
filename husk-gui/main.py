@@ -68,7 +68,7 @@ with dpg.window(tag='main_win') as mainwin:
 			# houdini version to launch husk from
 			with dpg.table_row():
 				dpg.add_text(utils.get_label('Houdini (Husk) version:'))
-				dpg.add_combo(tag='houdini_version', fit_width=True, items=houdini_paths.get_houdini_installed_versions(), default_value=houdini_paths.get_houdini_installed_versions()[0], callback=utils.redraw_delegates)
+				dpg.add_combo(tag='houdini_version', fit_width=True, items=houdini_paths.get_houdini_installed_versions(fullpaths=True), default_value=houdini_paths.get_houdini_installed_versions(fullpaths=True)[0], callback=utils.redraw_delegates)
 				utils.set_tooltip('Where to find the "husk" executable')
 				dpg.add_spacer(width=-1)
 

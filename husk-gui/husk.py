@@ -11,6 +11,8 @@ import houdini_paths
 def get_gpu_flag():
 	gpu_flag='' 
 	houdini_version = dpg.get_value('houdini_version')
+	if '/' in houdini_version: 
+		houdini_version = houdini_version.split('/')[-1].split(' ')[1]
 	major,minor,build = (int(houdini_version.split('.')[0]), int(houdini_version.split('.')[1]), int(houdini_version.split('.')[2]))
 	if major >= 21 and build >= 170: gpu_flag='--gpu'
 	return gpu_flag
