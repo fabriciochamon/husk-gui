@@ -6,6 +6,8 @@ import utils, selectables, log, config
 from fileseq import FileSequence
 import houdini_paths
 
+CREATE_NO_WINDOW = 0x08000000 # flag to avoid showing console in subprocesses, when building executable from pyinstaller
+
 # starting from Houdini 21.0.170, husk accepts the --gpu flag, to make gpu based render delegates available
 # this function handles where this is usable for the render command based on currently selected houdini version
 def get_gpu_flag():
@@ -31,7 +33,7 @@ def get_available_render_delegates():
 	gpu_flag=get_gpu_flag()
 
 	cmd = f'{husk} --list-renderers {gpu_flag}'
-	proc = subprocess.run(cmd, env=env, capture_output=True, text=True)
+	proc = subprocess.run(cmd, env=env, capture_output=True, text=True, creationflags=CREATE_NO_WINDOW)
 	out = proc.stderr
 	pattern = re.compile(r' - (.*)')
 	for line in out.split('\n'):
@@ -105,7 +107,7 @@ def render():
 			print(f'Render commmand received:\n\n{cmd}')
 			
 			# run in subprocess
-			proc = subprocess.run(cmd, env=env, start_new_session=True)
+			proc = subprocess.run(cmd, env=env, start_new_session=True, creationflags=CREATE_NO_WINDOW)
 
 		else:
 			utils.flash_message(f'Please choose a render delegate!', color=(255, 200, 3))
@@ -123,7 +125,7 @@ def inspect_usd(usd):
 	env['HUSKGUI_TMP'] = str(config.tmpdir)
 	usd_inspection_script = utils.get_path('usd_inspection.py')
 	cmd = f'"{husk}" --prerender-script "{usd_inspection_script}" {usd}'
-	proc = subprocess.run(cmd, env=env)
+	proc = subprocess.run(cmd, env=env, creationflags=CREATE_NO_WINDOW)
 	
 	# load temp .json with usd info
 	tmpdir = Path(tempfile.gettempdir())

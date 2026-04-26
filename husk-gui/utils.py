@@ -8,6 +8,7 @@ from fileseq import FileSequence
 import log
 
 FFMPEG_AVAILABLE = False
+CREATE_NO_WINDOW = 0x08000000 # flag to avoid showing console in subprocesses, when building executable from pyinstaller
 
 # sets render resolution from preset combo item
 def set_render_preset(sender, app_data, user_data):
@@ -209,7 +210,7 @@ def open_render_in_mplay():
 			mplay = houdini_paths.get_bin('mplay')
 			cmd = f'"{mplay}" -p "{seq_formatted}"'
 			flash_message(f'Launching render in Mplay...')
-			proc = subprocess.run(cmd, env=env, start_new_session=True)
+			proc = subprocess.run(cmd, env=env, start_new_session=True, creationflags=CREATE_NO_WINDOW)
 
 # creates a video using hoiiotool and ffmpeg
 def create_video_from_render_output():
@@ -264,7 +265,7 @@ def create_video_from_render_output():
 				# hoiiotool converts betwen colorspaces (Acescg -> sRGB)
 				hoiiotool = houdini_paths.get_bin('hoiiotool')
 				cmd = f'"{hoiiotool}" -v --frames {seq_in.frameRange()} -i "{seq_in}" -colorconvert "ACES - ACEScg" "Output - sRGB" -o "{seq_out}"'
-				proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env, bufsize=1, start_new_session=True)
+				proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env, bufsize=1, start_new_session=True, creationflags=CREATE_NO_WINDOW)
 
 				# regex update progressbar
 				pattern = f'{seq_out.dirname()}{seq_out.basename()}'
@@ -288,7 +289,7 @@ def create_video_from_render_output():
 				padding = f'%0{seq_out.zfill()}d'
 				overwrite_flag = '-y' if not ctrl_clicked else '-n'
 				cmd = f'ffmpeg -loglevel quiet -stats {overwrite_flag} -i {seq_out.dirname()}{seq_out.basename()}{padding}{seq_out.extension()} {video_file}'
-				proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env, bufsize=1, start_new_session=True)
+				proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env, bufsize=1, start_new_session=True, creationflags=CREATE_NO_WINDOW)
 
 				for line in proc.stdout:
 					dpg.set_value('log', dpg.get_value('log')+line+'\n')
@@ -312,7 +313,7 @@ def is_ffmpeg_installed():
 	if not FFMPEG_AVAILABLE:
 		ffmpeg_installed = False
 		try:
-			out = subprocess.check_output('ffmpeg -version'.split())
+			out = subprocess.check_output('ffmpeg -version'.split(), creationflags=CREATE_NO_WINDOW)
 			out = out.decode()
 			if out.startswith('ffmpeg version'):
 				ffmpeg_installed = True
