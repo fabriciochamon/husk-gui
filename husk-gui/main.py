@@ -68,8 +68,16 @@ with dpg.window(tag='main_win') as mainwin:
 			# houdini version to launch husk from
 			with dpg.table_row():
 				dpg.add_text(utils.get_label('Houdini (Husk) version:'))
-				dpg.add_combo(tag='houdini_version', fit_width=True, items=houdini_paths.get_houdini_installed_versions(fullpaths=True), default_value=houdini_paths.get_houdini_installed_versions(fullpaths=True)[0], callback=utils.redraw_delegates)
-				utils.set_tooltip('Where to find the "husk" executable')
+				with dpg.group(horizontal=True):
+					dpg.add_combo(tag='houdini_version', fit_width=True, items=houdini_paths.get_houdini_installed_versions(fullpaths=True), default_value=houdini_paths.get_houdini_installed_versions(fullpaths=True)[0], callback=utils.redraw_delegates)
+					utils.set_tooltip('Where to find the "husk" executable')
+					dpg.add_button(tag='btn_add_custom_path', label='+', width=30)
+					utils.set_tooltip('Add custom install path')
+					with dpg.popup('btn_add_custom_path', mousebutton=dpg.mvMouseButton_Left, modal=True, tag='popup_add_custom_path'):
+						dpg.add_input_text(tag='custom_path', width=400, hint='Paste path to root of a houdini install folder...')
+						dpg.add_button(label='Add', callback=houdini_paths.add_custom_install_path)
+					dpg.add_button(tag='btn_rem_custom_path', label='-', width=30, callback=houdini_paths.rem_custom_install_path)
+					utils.set_tooltip('Remove custom install path')			
 				dpg.add_spacer(width=-1)
 
 			# override packages dir
